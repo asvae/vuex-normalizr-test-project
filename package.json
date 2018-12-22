@@ -27,7 +27,9 @@
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
     "ts-jest": "^23.0.0",
+    "tslint-config-standard": "^8.0.1",
     "typescript": "^3.0.0",
+    "vue-book": "0.0.19",
     "vue-template-compiler": "^2.5.17"
   },
   "gitHooks": {
