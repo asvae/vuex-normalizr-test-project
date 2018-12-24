@@ -1,16 +1,24 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-const VueBook = require('vue-book').default
+import BookingListWithNormalizr from './components/BookingListWithNormalizr/BookingListWithNormalizr.vue'
+import BookingListWithoutNormalizr from './components/BookingListWithoutNormalizr/BookingListWithoutNormalizr.vue'
+import Navigation from './components/Navigation.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    VueBook({
-      requireContext: require.context('./..', true, /.demo.vue$/),
+    {
       path: '/',
-      hideFileExtensions: true // optional, hides file extensions in list.
-    })
+      component: Navigation
+    },
+    {
+      path: '/with-normalizr',
+      component: BookingListWithNormalizr
+    },
+    {
+      path: '/without-normalizr',
+      component: BookingListWithoutNormalizr
+    }
   ]
 })

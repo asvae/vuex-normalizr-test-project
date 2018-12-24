@@ -1,57 +1,40 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {
+  Booking,
+  BookingField,
+  FieldValue,
+  getBookingList
+} from './bookingList'
 
 Vue.use(Vuex)
 
-export interface FieldValue {
-  id: number
-  name: string
-}
-
-export interface Field {
-  id: number
-  values: FieldValue[]
-}
-
-export interface BookingField {
-  id: number
-  field: Field
-  value: FieldValue | null
-}
-
-export interface Booking {
-  id: number
-  bookingFields: BookingField[]
-}
-
-const fieldValues = [
-  { id: 1, name: 'one' },
-  { id: 2, name: 'two' },
-  { id: 3, name: 'three' }
-] as FieldValue[]
-
-const fields = [
-  { id: 1, values: fieldValues },
-  { id: 2, values: fieldValues },
-  { id: 3, values: fieldValues }
-] as Field[]
-
-const bookingFields = fields.map(
-  field => ({
-    id: field.id,
-    field: field,
-    value: null
-  })
-) as BookingField[]
 
 export default new Vuex.Store({
   state: {
-    bookingList: [
-      { id: 100, bookingFields },
-      { id: 101, bookingFields },
-      { id: 102, bookingFields }
-    ] as Booking[]
+    bookingList: getBookingList()
   },
-  mutations: {},
-  actions: {}
+  getters: {
+    bookingList (state) {
+      return state.bookingList
+    }
+  },
+  mutations: {
+    setBookingListBookingFieldValue: (state, { bookingId, fieldIndex, fieldValueId }) => {
+      console.log('Updating field without normalizr', { bookingId, fieldIndex, fieldValueId })
+
+      const booking = state.bookingList.find(
+        booking => booking.id === bookingId
+      ) as Booking
+      const bookingField: BookingField = booking.bookingFields[fieldIndex]
+      bookingField.value = fieldValueId ? bookingField.field.values.find(
+        fieldValue => fieldValue.id === fieldValueId
+      ) as FieldValue : null
+    }
+  },
+  actions: {
+    setBookingListBookingFieldValue (context, { bookingId, fieldIndex, fieldValueId }) {
+      context.commit('setBookingListBookingFieldValue', { bookingId, fieldIndex, fieldValueId })
+    }
+  }
 })
