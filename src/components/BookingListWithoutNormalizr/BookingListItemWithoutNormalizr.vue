@@ -1,6 +1,7 @@
 <template>
   <v-layout class="BookingListItemWithoutNormalizr">
-    <v-flex xs12
+    <v-flex
+      xs12
       v-for="bookingField in booking.bookingFields"
     >
       <booking-field-value-select-without-normalizr
@@ -15,7 +16,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Booking } from '../../bookingList'
 import BookingFieldValueSelectWithoutNormalizr
-  from '@/components/BookingListWithoutNormalizr/BookingFieldValueSelectWithoutNormalizr.vue'
+  from './BookingFieldValueSelectWithoutNormalizr.vue'
 
 @Component({
   components: { BookingFieldValueSelectWithoutNormalizr }
