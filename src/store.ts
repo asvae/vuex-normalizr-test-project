@@ -9,7 +9,6 @@ import {
 
 Vue.use(Vuex)
 
-
 export default new Vuex.Store({
   state: {
     bookingList: getBookingList(),
@@ -20,7 +19,10 @@ export default new Vuex.Store({
       return state.bookingList
     },
     bookingDenormalizedList (state) {
-      return denormalizeData(state.bookingNormalizedList)
+      const data = denormalizeData(state.bookingNormalizedList)
+      console.log('denormalized data', data)
+
+      return data
     },
     bookingNormalizedList (state) {
       return state.bookingNormalizedList
@@ -29,7 +31,7 @@ export default new Vuex.Store({
       return dataJoinBooking(state.bookingNormalizedList)
     },
     bookingFieldIdJoinRest (state) {
-      return bookingFieldId => bookingFieldIdJoinRest(bookingFieldId, state.bookingNormalizedList)
+      return (bookingFieldId: number) => bookingFieldIdJoinRest(bookingFieldId, state.bookingNormalizedList)
     }
   },
   mutations: {
@@ -47,6 +49,8 @@ export default new Vuex.Store({
     setBookingListBookingFieldValueFlat: (state, { bookingFieldId, newValue }) => {
       console.log('Updating field with normalizr', { bookingFieldId, newValue })
 
+      console.log('state.bookingNormalizedList.entities.bookingField[bookingFieldId]', state.bookingNormalizedList.entities.bookingField[bookingFieldId])
+      console.log('newValue', newValue)
       state.bookingNormalizedList.entities.bookingField[bookingFieldId].value = newValue
     }
   },

@@ -3,6 +3,7 @@
     <v-flex
       xs12
       v-for="bookingField in booking.bookingFields"
+      :key="bookingField.id"
     >
       <booking-field-value-select-without-normalizr
         :bookingField="bookingField"

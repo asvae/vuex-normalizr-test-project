@@ -72,26 +72,23 @@ const initialData = deepCopy(getBookingList())
 export const normalizedData = normalize(initialData, bookings)
 console.log('normalizedData', normalizedData)
 
-
-
-export const denormalizeData = data => denormalize(
+export const denormalizeData = (data: {result: any, entities: any}) => denormalize(
   data.result,
   bookings,
   data.entities
 )
 
-export const dataJoinBooking = data => denormalize(
+export const dataJoinBooking = (data: {result: any, entities: any}) => denormalize(
   data.result,
   new schema.Array(new schema.Entity('booking')),
   { booking: data.entities.booking }
 )
 
-export const bookingFieldIdJoinRest = (id, data) => denormalize(
+export const bookingFieldIdJoinRest = (id: number, data: {result: any, entities: any}) => denormalize(
   id,
   bookingField,
   data.entities
 )
-
 
 const denormalizedData = denormalizeData(normalizedData)
 console.log('denormalizedData', denormalizedData)

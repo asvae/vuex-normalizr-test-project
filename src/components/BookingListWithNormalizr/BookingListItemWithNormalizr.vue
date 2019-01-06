@@ -3,6 +3,7 @@
     <v-flex
       xs12
       v-for="bookingFieldId in booking.bookingFields"
+      :key="bookingFieldId"
     >
       <booking-field-value-select-with-normalizr
         :bookingFieldId="bookingFieldId"
@@ -21,7 +22,7 @@ import BookingFieldValueSelectWithNormalizr
   components: { BookingFieldValueSelectWithNormalizr }
 })
 export default class BookingListItemWithNormalizr extends Vue {
-  @Prop({ required: true }) booking
+  @Prop({ required: true }) booking!: Booking
 }
 </script>
 

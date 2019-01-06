@@ -18,10 +18,9 @@ import { FieldValue } from '../../bookingList'
 
 @Component
 export default class BookingFieldValueSelectWithNormalizr extends Vue {
-  @Prop({ required: true }) bookingFieldId
+  @Prop({ required: true }) bookingFieldId!: number
   @Action setBookingListBookingFieldValueFlat!: Function
-  @Getter bookingFieldIdJoinRest
-
+  @Getter bookingFieldIdJoinRest!: any
 
   set valueProxy (fieldValue: FieldValue | null) {
     this.setBookingListBookingFieldValueFlat({

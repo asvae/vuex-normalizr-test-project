@@ -27,17 +27,17 @@ import BookingListItemWithNormalizr
   components: { BookingListItemWithNormalizr }
 })
 export default class BookingListWithNormalizr extends Vue {
-  @Getter bookings
-  @Getter bookingDenormalizedList
-  @Getter bookingNormalizedList
+  @Getter bookings!: Booking[]
+  @Getter bookingDenormalizedList!: any
+  @Getter bookingNormalizedList!: any
 
   get values () {
-    return this.bookingNormalizedList
+    // return this.bookingNormalizedList
   //  TODO: can not watch denormalized data - reactivity is lost
-  //   return this.bookingDenormalizedList.map(booking => ({
-  //     bookingId: booking.id,
-  //     bookingFieldValues: booking.bookingFields.map(bookingField => bookingField.value && bookingField.value.name)
-  //   }))
+    return this.bookingDenormalizedList.map((booking: Booking) => ({
+      bookingId: booking.id,
+      bookingFieldValues: booking.bookingFields.map(bookingField => bookingField.value)
+    }))
   }
 }
 </script>
