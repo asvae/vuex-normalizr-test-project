@@ -1,43 +1,43 @@
 <template>
   <div class="BookingListWithNormalizr">
-    <!--<v-expansion-panel>-->
-      <!--<v-expansion-panel-content-->
-        <!--v-for="booking in bookingList"-->
-        <!--:key="booking.id"-->
-      <!--&gt;-->
-        <!--<div slot="header">Booking #{{booking.id}}</div>-->
-        <!--<booking-list-item-without-normalizr-->
-          <!--:booking="booking"-->
-        <!--/>-->
-      <!--</v-expansion-panel-content>-->
-    <!--</v-expansion-panel>-->
+    <v-expansion-panel>
+      <v-expansion-panel-content
+        v-for="booking in bookings"
+        :key="booking.id"
+      >
+        <div slot="header">Booking #{{booking.id}}</div>
+        <booking-list-item-with-normalizr
+          :booking="booking"
+        />
+      </v-expansion-panel-content>
+    </v-expansion-panel>
     <pre>{{ values }}</pre>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-// import BookingListItemWithoutNormalizr
-//   from './BookingListItemWithoutNormalizr.vue'
-
 import { Getter } from 'vuex-class'
 import { Booking } from '@/bookingList'
 
+import BookingListItemWithNormalizr
+  from './BookingListItemWithNormalizr.vue'
+
 @Component({
-  // components: { BookingListItemWithoutNormalizr }
+  components: { BookingListItemWithNormalizr }
 })
 export default class BookingListWithNormalizr extends Vue {
-  @Getter bookingList !: Booking[]
-
-  mounted () {
-    console.log(this.bookingList)
-  }
+  @Getter bookings
+  @Getter bookingDenormalizedList
+  @Getter bookingNormalizedList
 
   get values () {
-    return this.bookingList.map(booking => ({
-      bookingId: booking.id,
-      bookingFieldValues: booking.bookingFields.map(bookingField => bookingField.value && bookingField.value.name)
-    }))
+    return this.bookingNormalizedList
+  //  TODO: can not watch denormalized data - reactivity is lost
+  //   return this.bookingDenormalizedList.map(booking => ({
+  //     bookingId: booking.id,
+  //     bookingFieldValues: booking.bookingFields.map(bookingField => bookingField.value && bookingField.value.name)
+  //   }))
   }
 }
 </script>
