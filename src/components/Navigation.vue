@@ -36,6 +36,18 @@
           </router-link>
         </v-layout>
       </v-flex>
+
+      <v-flex xs12 mb-5>
+        <h2 class="headline font-weight-bold mb-3">Plain objects</h2>
+        <v-layout justify-center>
+          <router-link
+            to="plain-objects"
+            class="subheading mx-3"
+          >
+            See demo
+          </router-link>
+        </v-layout>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
